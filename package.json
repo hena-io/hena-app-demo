@@ -11,6 +11,7 @@
     "asyncstorage-down": "^4.0.1",
     "browserify-zlib": "^0.1.4",
     "dns.js": "^1.0.1",
+    "ethereumjs-wallet-react-native": "^0.6.7",
     "https-browserify": "0.0.1",
     "node-libs-browser": "^2.1.0",
     "react": "16.3.1",
