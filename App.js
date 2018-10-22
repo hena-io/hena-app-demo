@@ -11,6 +11,9 @@ import {
   Text,
   View
 } from 'react-native';
+import { createBottomTabNavigator } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { Button } from 'react-native-elements';
 
 import './global';
 import Web3 from 'web3';
@@ -26,8 +29,41 @@ const web3 = new Web3(
   )
 );
 
-type Props = {};
-export default class App extends Component<Props> {
+class HomeScreen extends Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          Welcome to React Native!
+        </Text>
+        <Text style={styles.instructions}>
+          To get started, edit App.js
+        </Text>
+        <Icon name={'ios-hammer'} size={64}/>
+        <Button title={"WHAT!?"} />
+      </View>
+    );
+  }
+}
+
+const HomeNavigator = createBottomTabNavigator({
+  Home: {
+    screen: HomeScreen,
+    title: 'Home',
+    navigationOptions: () => ({
+      tabBarIcon: ({ tintColor }) => (
+        <Icon
+          name={'ios-home'}
+          size={26}
+          style={{marginBottom: -3}}
+          color={tintColor}
+        />
+      )
+    })
+  }
+});
+
+export default class App extends Component {
   componentWillMount() {
     console.log(web3.version);
     web3.eth.getBalance(Config.TEST_WALLET_ADDRESS)
@@ -46,15 +82,11 @@ export default class App extends Component<Props> {
     web3.eth.getBalance(address)
       .then(balance => console.log(balance));
   }
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
+      <View style={{flex: 1}}>
+        <HomeNavigator />
       </View>
     );
   }
