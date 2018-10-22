@@ -14,6 +14,7 @@ import {
 import { createBottomTabNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { Button } from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 
 import './global';
 import Web3 from 'web3';
@@ -32,15 +33,22 @@ const web3 = new Web3(
 class HomeScreen extends Component {
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit App.js
-        </Text>
-        <Icon name={'ios-hammer'} size={64}/>
-        <Button title={"WHAT!?"} />
+      <View style={{flex:1}}>
+        <LinearGradient 
+          style={{flex: 1}}
+          colors={['#4A00E0', '#8E2DE2']}
+        >
+          <View style={styles.container}>
+            <Text style={styles.welcome}>
+              Welcome to React Native!
+            </Text>
+            <Text style={styles.instructions}>
+              To get started, edit App.js
+            </Text>
+            <Icon name={'ios-hammer'} size={64} color={'#FFF'}/>
+            <Button title={"WHAT!?"} />
+          </View>
+        </LinearGradient>
       </View>
     );
   }
@@ -97,7 +105,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
   },
   welcome: {
     fontSize: 20,
