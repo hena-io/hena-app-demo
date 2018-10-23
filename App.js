@@ -5,26 +5,30 @@
  */
 
 import React, { Component } from 'react';
+import { Provider } from 'react-redux';
 import { View } from 'react-native';
 import { createSwitchNavigator } from 'react-navigation';
 
 import './global';
 
+import store from './src/store';
 import HomeNavigator from './src/navigations/HomeNavigator';
-import CreateAccountScreen from './src/screens/wallet/CreateAccountScreen';
-import WalletHomeScreen from './src/screens/wallet/WalletHomeScreen';
+import CreateAccountContainer from './src/containers/CreateAccountContainer';
+import WalletContainer from './src/containers/WalletContainer';
 
 const WalletNavigator = createSwitchNavigator({
-  Create: CreateAccountScreen,
-  Home: WalletHomeScreen
+  Create: CreateAccountContainer,
+  Home: WalletContainer
 });
 
 export default class App extends Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <WalletNavigator />
-      </View>
+      <Provider store={store}>
+        <View style={{flex: 1}}>
+          <WalletNavigator />
+        </View>
+      </Provider>
     );
   }
 }
