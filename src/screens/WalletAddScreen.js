@@ -1,22 +1,31 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Text, Button } from 'react-native-elements';
+import { Button } from 'react-native-elements';
 
-export default class WalletAccountScreen extends Component {
+export default class WalletAddScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <Text h2>Account</Text>
                 <Button
-                    title={'Create Account'}
+                    title={'Create'}
                     buttonStyle={styles.button}
+                    onPress={this.onCreate}
                 />
                 <Button
-                    title={'Import Account'}
+                    title={'Import'}
                     buttonStyle={styles.button}
+                    onPress={this.onImport}
                 />
             </View>
         );
+    }
+
+    onCreate = () => {
+        this.props.navigation.navigate('Create');
+    }
+
+    onImport = () => {
+        this.props.navigation.navigate('Import');
     }
 }
 

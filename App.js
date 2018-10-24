@@ -7,26 +7,20 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { View } from 'react-native';
-import { createSwitchNavigator } from 'react-navigation';
+import bip39 from 'react-native-bip39';
+import HDKey from 'ethereumjs-wallet-react-native/hdkey';
 
 import './global';
 
 import store from './src/store';
-import HomeNavigator from './src/navigations/HomeNavigator';
-import CreateAccountContainer from './src/containers/CreateAccountContainer';
-import WalletContainer from './src/containers/WalletContainer';
-
-const WalletNavigator = createSwitchNavigator({
-  Create: CreateAccountContainer,
-  Home: WalletContainer
-});
+import WalletAddNavigator from './src/navigations/WalletAddNavigator';
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <View style={{flex: 1}}>
-          <WalletNavigator />
+          <WalletAddNavigator />
         </View>
       </Provider>
     );

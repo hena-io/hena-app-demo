@@ -1,20 +1,19 @@
 import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    Clipboard
-} from 'react-native';
+import { StyleSheet, View, Clipboard } from 'react-native';
 import { Text, Button } from 'react-native-elements';
-
+import PropTypes from 'prop-types';
 import bip39 from 'react-native-bip39';
 import HDKey from 'ethereumjs-wallet-react-native/hdkey';
-
 import * as Constants from '../constants';
 
 const introduce = 'These 12 words are the only way to restore your Hena Wallet.\n' +
     'Save them somewhere safe and secret.'
 
 export default class CreateWallet extends Component {
+    static propTypes = {
+        onCreate: PropTypes.func
+    }
+
     constructor(props) {
         super(props);
 
@@ -32,7 +31,6 @@ export default class CreateWallet extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.topContainer}>
-                    <Text h2>Create Account</Text>
                     <Text style={styles.message}>{introduce}</Text>
                 </View>
                 <View style={styles.centerContainer}>
@@ -48,9 +46,9 @@ export default class CreateWallet extends Component {
                         Copy
                     </Text>
                     <Button
-                        title={'Next'}
-                        buttonStyle={styles.button}
-                        onPress={this._onNext}
+                        title={'Create'}
+                        buttonStyle={styles.createButton}
+                        onPress={this._onCreate}
                     />
                 </View>
             </View>
@@ -61,11 +59,14 @@ export default class CreateWallet extends Component {
         Clipboard.setString(this.state.wordList);
     }
 
-    _onNext = () => {
-        const hdkey = HDKey.fromMasterSeed(bip39.mnemonicToSeed(this.state.wordList))
+    _onCreate = () => {
+        const seed = bip39.mnemonicToSeed(this.state.wordList);
+        const hdkey = HDKey.fromMasterSeed(seed)
             .derivePath(Constants.DEFAULT_WALLET_PATH);
 
-        this.props.onCreate(hdkey);
+        if (this.props.onCreate) {
+            this.props.onCreate(hdkey);
+        }
     }
 }
 
@@ -99,7 +100,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         margin: 20
     },
-    button: {
+    createButton: {
         width: 200,
     }
 });

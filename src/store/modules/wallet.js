@@ -18,14 +18,16 @@ const initialState = {
 
 // Reducer
 export default reducer = handleActions({
-    [ADD_WALLET]: (state, action) => {
-        state.wallets.push(action.payload);
-        return state;
-    },
-    [REMOVE_WALLET]: ({ wallets }, action) => ({
-        wallets: wallets.slice(action.payload, 1)
+    [ADD_WALLET]: (state, action) => ({
+        wallets: state.wallets.concat(action.payload),
+        selectedIndex: state.wallets.length
     }),
-    [SELECT_WALLET]: ({ selectedIndex }) => ({
-        selectedIndex: selectedIndex
+    [REMOVE_WALLET]: (state, action) => ({
+        wallets: state.wallets.slice(action.payload, 1),
+        selectedIndex: ((state.selectedIndex >= state.wallets.length - 1) ? 0 : state.selectedIndex)
+    }),
+    [SELECT_WALLET]: (state, action) => ({
+        wallets: state.wallets,
+        selectedIndex: Math.max(Math.min(action.payload, state.wallets.length - 1), 0)
     })
 }, initialState);
