@@ -1,21 +1,20 @@
-import React from 'react';
 import { createMaterialTopTabNavigator } from 'react-navigation';
 
-import WalletAccountNavigator from './WalletAccountNavigator';
-import MiningNavigator from './MiningNavigator';
-import AICNavigator from './AICNavigator';
+import WalletScreen from '../screens/WalletScreen';
+import MiningScreen from '../screens/MiningScreen';
+import AICScreen from '../screens/AICScreen';
 
 export default createMaterialTopTabNavigator({
     Wallet: {
-        screen: WalletAccountNavigator,
+        screen: WalletScreen,
         title: 'Wallet',
     },
     Mining: {
-        screen: MiningNavigator,
+        screen: MiningScreen,
         title: 'Mining',
     },
     AIC: {
-        screen: AICNavigator,
+        screen: AICScreen,
         title: 'AIC',
     },
 });

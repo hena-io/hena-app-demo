@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { NavigationActions } from 'react-navigation';
 import CreateWallet from '../components/CreateWallet';
 import * as walletActions from '../store/modules/wallet';
 
 class WalletCreateContainer extends Component {
+    componentWillMount() {
+        console.log(this.props);
+    }
+
     render() {
         return (
             <CreateWallet onCreate={this._onCreate} />
@@ -12,7 +17,7 @@ class WalletCreateContainer extends Component {
 
     _onCreate = (hdkey) => {
         this.props.addWallet(hdkey);
-        this.props.navigation.pop();
+        this.props.screenProps.rootNavigation.navigate('Home');
     };
 }
 

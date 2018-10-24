@@ -1,12 +1,12 @@
 import { createStackNavigator } from 'react-navigation';
 
-import WalletAddScreen from '../screens/WalletAddScreen';
+import WalletAddHomeScreen from '../screens/WalletAddHomeScreen';
 import WalletCreateContainer from '../containers/WalletCreateContainer';
 import WalletImportContainer from '../containers/WalletImportContainer';
 
 export default createStackNavigator({
     Home: {
-        screen: WalletAddScreen,
+        screen: WalletAddHomeScreen,
         navigationOptions: {
             headerTitle: 'Add New Wallet',
         },

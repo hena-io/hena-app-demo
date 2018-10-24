@@ -20,7 +20,7 @@ class WalletImportContainer extends Component {
             this.props.selectWallet(index);
         }
 
-        this.props.navigation.pop();
+        this.props.screenProps.rootNavigation.navigate('Home');
     };
 }
 

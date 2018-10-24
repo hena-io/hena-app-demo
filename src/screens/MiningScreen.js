@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Text } from 'react-native-elements';
 
-export default class MiningHomeScreen extends Component {
+export default class MiningScreen extends Component {
     render() {
         return (
             <View style={styles.container}>
