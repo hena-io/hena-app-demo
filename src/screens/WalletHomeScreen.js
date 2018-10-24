@@ -4,6 +4,7 @@ import { Text, Card, ListItem } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import web3 from '../utils/web3';
 import Config from 'react-native-config';
+import TokenListItem from '../components/TokenListItem';
 
 const mock = [
     {
@@ -92,21 +93,6 @@ const mock = [
     }
 ];
 
-const renderToken = ({index, item}) => {
-    return (
-        <ListItem
-            key={index.toString()}
-            title={`${item.name}(${item.symbol})`}
-            subtitle={'$$$'}
-            leftIcon={<Icon name='ios-qr-scanner' size={30}/>}
-            rightIcon={<Icon name='ios-arrow-forward' size={30}/>}
-            rightTitle={`${item.balance}`}
-            onPress={() => console.log('Token', item.name)}
-            bottomDivider={true}
-        />
-    );
-};
-
 export default class WalletHomeScreen extends Component {
     constructor (props) {
         super(props);
@@ -126,12 +112,24 @@ export default class WalletHomeScreen extends Component {
             <View style={styles.container}>
                 <FlatList
                     data={this.state.tokens}
-                    renderItem={renderToken}
-                    keyExtractor={(value, index) => index.toString()}
+                    renderItem={this.renderToken}
+                    keyExtractor={this.keyExtractor}
                 />
             </View>
         );
     }
+
+    renderToken = ({index, item}) => (
+        <TokenListItem
+            index={index}
+            item={item}
+            onPress={() => console.log('Token', item.name)}
+        />
+    );
+
+    keyExtractor = (value, index) => (
+        index.toString()
+    );
 }
 
 const styles = StyleSheet.create({

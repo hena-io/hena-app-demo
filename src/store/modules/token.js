@@ -15,13 +15,15 @@ const initialState = {
             name: 'Ethereum',
             symbol: 'ETH',
             decimals: 18,
-            contract: ''
+            contractAddress: '',
+            contract: null
         },
         {
             name: 'Hena',
             symbol: 'HENA',
             decimals: 18,
-            contract: '0x8d97c127236d3aef539171394212f2e43ad701c4'
+            contractAddress: '0x8d97c127236d3aef539171394212f2e43ad701c4',
+            contract: null
         }
     ]
 };
