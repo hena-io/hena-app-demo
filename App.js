@@ -12,14 +12,14 @@ import './global';
 
 import store from './src/store';
 import MainNavigator from './src/navigations/MainNavigator';
-import WalletHomeScreen from './src/screens/WalletHomeScreen';
+import WalletTokenScreen from './src/screens/WalletTokenScreen';
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <View style={{flex: 1}}>
-          <WalletHomeScreen />
+          <WalletTokenScreen />
         </View>
       </Provider>
     );

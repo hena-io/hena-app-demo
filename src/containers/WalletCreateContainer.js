@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavigationActions } from 'react-navigation';
+
 import CreateWallet from '../components/CreateWallet';
 import * as walletActions from '../store/modules/wallet';
 
 class WalletCreateContainer extends Component {
-    componentWillMount() {
-        console.log(this.props);
-    }
-
     render() {
         return (
             <CreateWallet onCreate={this._onCreate} />
