@@ -13,13 +13,14 @@ import './global';
 import store from './src/store';
 import MainNavigator from './src/navigations/MainNavigator';
 import WalletTokenScreen from './src/screens/WalletTokenScreen';
+import TransactionListContainer from './src/containers/WalletTransactionListContainer';
 
 export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
         <View style={{flex: 1}}>
-          <WalletTokenScreen />
+          <TransactionListContainer />
         </View>
       </Provider>
     );

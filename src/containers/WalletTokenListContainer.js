@@ -25,15 +25,14 @@ const extractCurrentAddress = (wallet) => (
     wallet.wallets[wallet.selectedIndex]
         .getWallet()
         .getAddressString()
-);
+)
 
 const mapStateToProps = (state) => {
-    console.log(state.token);
     return ({
         tokens: state.token.tokens,
         address: extractCurrentAddress(state.wallet)
     });
-};
+}
 
 const mapDispatchToProps = (dispatch) => ({
     removeToken: (index) => dispatch(TokenActions.removeToken(index))
