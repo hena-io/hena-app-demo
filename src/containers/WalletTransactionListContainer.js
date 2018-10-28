@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import * as TransactionActions from '../store/modules/transactions';
+import { loadTxs } from '../store/modules/transactions';
 import TransactionList from '../components/TransactionList';
 
 class WalletTransactionListContainer extends Component {
@@ -28,7 +28,7 @@ class WalletTransactionListContainer extends Component {
     }
 
     refresh() {
-        this.props.loadTxs(1, 10);
+        this.props.loadTxs(this.props.address, false, 1, 10);
     }
 }
 
@@ -37,7 +37,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    loadTxs: (page, offset) => dispatch(TransactionActions.loadTxs(page, offset))
+    loadTxs: (address, isToken, page, offset) => dispatch(loadTxs(address, isToken, page, offset)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletTransactionListContainer);
