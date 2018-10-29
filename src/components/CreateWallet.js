@@ -4,8 +4,10 @@ import { Text, Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import bip39 from 'react-native-bip39';
 import HDKey from 'ethereumjs-wallet-react-native/hdkey';
-import * as Constants from '../constants';
+import web3 from '../utils/web3';
 
+import * as Constants from '../constants';
+1
 const introduce = 'These 12 words are the only way to restore your Hena Wallet.\n' +
     'Save them somewhere safe and secret.'
 
@@ -64,8 +66,10 @@ export default class CreateWallet extends Component {
         const hdkey = HDKey.fromMasterSeed(seed)
             .derivePath(Constants.DEFAULT_WALLET_PATH);
 
+        console.log(web3.utils.isAddress(hdkey.getWallet().getPublicKeyString()), hdkey.getWallet().getPublicKeyString());
+
         if (this.props.onCreate) {
-            this.props.onCreate(hdkey);
+            this.props.onCreate(hdkey.getWallet());
         }
     }
 }

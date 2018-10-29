@@ -11,12 +11,12 @@ class WalletImportContainer extends Component {
         );
     }
 
-    _onImport = (hdkey) => {
-        const newAddress = hdkey.getWallet().getAddressString();
+    _onImport = (wallet) => {
+        const newAddress = wallet.getAddressString();
         const index = this.props.addresses.findIndex((address) => newAddress === address);
 
         if (index === -1) {
-            this.props.addWallet(hdkey);
+            this.props.addWallet(wallet);
         } else {
             this.props.selectWallet(index);
         }
@@ -26,11 +26,11 @@ class WalletImportContainer extends Component {
 }
 
 const mapStateToProps = (state) => ({
-        addresses: state.wallet.wallets.map(hdkey => hdkey.getWallet().getAddressString())
+        addresses: state.wallet.wallets.map(wallet => wallet.getAddressString())
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    addWallet: (hdkey) => dispatch(walletActions.addWallet(hdkey)),
+    addWallet: (wallet) => dispatch(walletActions.addWallet(wallet, true)),
     selectWallet: (index) => dispatch(walletActions.selectWallet(index))
 });
 

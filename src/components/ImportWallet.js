@@ -73,7 +73,7 @@ export default class ImportWallet extends Component {
             Keyboard.dismiss();
 
             if (this.props.onImport) {
-                this.props.onImport(hdkey);
+                this.props.onImport(hdkey.getWallet());
             }
         } else {
             this.setState({ isValidMnemonic: false });

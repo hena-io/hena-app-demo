@@ -11,14 +11,14 @@ class WalletCreateContainer extends Component {
         );
     }
 
-    _onCreate = (hdkey) => {
-        this.props.addWallet(hdkey);
+    _onCreate = (wallet) => {
+        this.props.addWallet(wallet);
         this.props.screenProps.rootNavigation.navigate('Home');
     };
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addWallet: (hdkey) => dispatch(walletActions.addWallet(hdkey))
+    addWallet: (wallet) => dispatch(walletActions.addWallet(wallet, true))
 });
 
 export default connect(undefined, mapDispatchToProps)(WalletCreateContainer);
