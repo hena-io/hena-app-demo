@@ -1,17 +1,16 @@
 import { createStackNavigator } from 'react-navigation';
 
-import WalletHomeScreen from '../screens/WalletHomeScreen';
-import WalletTokenScreen from '../screens/WalletTokenScreen';
+import WalletTokenListScreen from '../screens/WalletTokenListScreen';
+import WalletTokenDetailsScreen from '../screens/WalletTokenDetailsScreen';
 
 export default createStackNavigator({
-    Home: {
-        screen: WalletHomeScreen,
+    Tokens: {
+        screen: WalletTokenListScreen,
         navigationOptions: {
-            header: null,
-            headerMode: 'none'
+            headerTitle: 'Wallet',
         }
     },
-    Token: {
-        screen: WalletTokenScreen,
+    Details: {
+        screen: WalletTokenDetailsScreen,
     }
 });

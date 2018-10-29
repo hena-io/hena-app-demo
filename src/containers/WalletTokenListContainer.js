@@ -10,15 +10,10 @@ class WalletTokenListContainer extends Component {
             <TokenList
                 address={this.props.address}
                 tokens={this.props.tokens}
-                onPressToken={this._onPressToken}
+                onPressToken={this.props.onShowTokenDetails}
             />
         );
     }
-
-    _onPressToken = (index) => {
-        this.props.screenProps.navigation
-            .navigate('Token', { index: index });
-    };
 }
 
 const extractCurrentAddress = (wallet) => (
@@ -27,12 +22,10 @@ const extractCurrentAddress = (wallet) => (
         .getAddressString()
 )
 
-const mapStateToProps = (state) => {
-    return ({
-        tokens: state.token.tokens,
-        address: extractCurrentAddress(state.wallet)
-    });
-}
+const mapStateToProps = (state) => ({
+    tokens: state.token.tokens,
+    address: extractCurrentAddress(state.wallet)
+})
 
 const mapDispatchToProps = (dispatch) => ({
     removeToken: (index) => dispatch(TokenActions.removeToken(index))

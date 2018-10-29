@@ -1,20 +1,30 @@
 import { createAction, handleActions } from 'redux-actions';
 import Config from 'react-native-config';
 
-import txlist_mock from '../../../mocks/txlist.json';
-import tokentx_mock from '../../../mocks/tokentx.json';
-
 const API_URL = 'http://api.etherscan.io/api';
+const START_BLOCK = 0;
+const END_BLOCK = 99999999;
 
-const getTransaction = (address, isToken, page, offset, sort) => (
-    `${API_URL}?module=account&action=${isToken ? 'tokentx' : 'txlist'}&address=${address}&startblock=$0&endblock=99999999&sort=${sort}&page=${page}&offset=${offset}&apikey=${Config.ETHERSCAN_API_KEY}`
-);
+const getTransactionStem = (address, isToken, page, offset, sort) => (
+    `${API_URL}?module=account&action=${isToken ? 'tokentx' : 'txlist'}&address=${address}&startblock=${START_BLOCK}&endblock=${END_BLOCK}&sort=${sort}&page=${page}&offset=${offset}&apikey=${Config.ETHERSCAN_API_KEY}`
+)
+
+const loadTransactions = (address, isToken, page, offset, sort = 'desc') => (
+    fetch(getTransactionStem(address, isToken, page, offset, sort))
+        .then(response => response.json())
+        .then(responseJson => responseJson.result)
+)
 
 // ActionTypes
 const LOAD_TXS = 'txs/LOAD';
 
 // Actions
-export const loadTxs = createAction(LOAD_TXS, (address, isToken, page, offset) => isToken ? tokentx_mock : txlist_mock);
+export const loadTxs = createAction(
+    LOAD_TXS,
+    (address, isToken, page, offset) => (
+        loadTransactions(address, isToken, page, offset)
+    )
+);
 
 // Initial State
 const initialState = {
@@ -24,6 +34,6 @@ const initialState = {
 // Reducer
 export default reducer = handleActions({
     [LOAD_TXS]: (state, action) => ({
-        list: action.payload.result || []
+        list: action.payload || []
     }),
 }, initialState);

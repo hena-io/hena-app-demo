@@ -15,7 +15,7 @@ export default class TokenList extends Component {
         tokens: PropTypes.arrayOf(PropTypes.object).isRequired,
         listStyle: View.propTypes.style,
         onPressToken: PropTypes.func,
-    };
+    }
 
     constructor(props) {
         super(props);
@@ -43,18 +43,25 @@ export default class TokenList extends Component {
         )
     }
 
-    _renderToken = ({index, item}) => (
-        <TokenListItem
-            index={index}
-            item={item}
-            address={this.props.address}
-            onPress={() => this.props.onPressToken(index)}
-        />
-    );
+    _renderToken = ({index, item}) => {
+        const {
+            address,
+            onPressToken,
+        } = this.props;
+        
+        return (
+            <TokenListItem
+                index={index}
+                item={item}
+                address={address}
+                onPress={() => onPressToken(item.name, address, index, item)}
+            />
+        );
+    }
 
     _keyExtractor = (value, index) => (
         index.toString()
-    );
+    )
 }
 
 const styles = StyleSheet.create({

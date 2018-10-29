@@ -29,7 +29,7 @@ export default class TokenListItem extends Component {
     }
 
     _refreshBalance = () => {
-        if (this.props.item.name === 'Ethereum') {
+        if (this.props.index === 0) {
             fetch(`${API_STEM}/${this.props.item.name}/`)
                 .then(response => response.json())
                 .then(responseJSON => responseJSON[0].price_usd)

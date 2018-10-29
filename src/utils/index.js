@@ -4,12 +4,13 @@ export function toUsdFormat(price) {
     return price ? `$${price.substring(0, price.indexOf('.'))}` : '';
 }
 
-export function toBalanceFormat(balance, decimals = 18) {
-    if (balance.length < decimals) {
-        
-    }
-
-    let parts = balance.split('.');
+export function toBalanceFormat(balance, decimals = 0) {
+    balance = balance.padStart(decimals + 1, '0');
+    
+    let parts = [
+        balance.substring(0, balance.length - decimals),
+        balance.substring(balance.length - decimals, balance.length)
+    ];
 
     let end = (parts[0].length - 1 < FRACTIONAL_PART_DISPLAY_LENGTH)
         ? FRACTIONAL_PART_DISPLAY_LENGTH - parts[0].length + 1 : 0;
