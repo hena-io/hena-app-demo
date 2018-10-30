@@ -6,10 +6,12 @@ import {
     View,
 } from 'react-native';
 import PropTypes from 'prop-types';
+import Big from 'big.js';
 import { connect } from 'react-redux';
 import { Input, Button } from 'react-native-elements';
 
 import web3 from '../utils/web3';
+import * as Utils from '../utils';
 
 const INVALID_ADDRESS_MESSAGE = 'Invalid Address';
 const INVALID_AMOUNT_MESSAGE = 'Invalid Amount';
@@ -31,7 +33,8 @@ export default class WalletSendScreen extends Component {
 
 class Send extends Component {
     static propTypes = {
-        token: PropTypes.object.isRequired
+        token: PropTypes.object.isRequired,
+        balance: PropTypes.string.isRequired,
     }
 
     constructor(props) {
@@ -39,46 +42,33 @@ class Send extends Component {
 
         this.state = {
             toAddress: '',
-            validToAddress: false,
-            invalidAddressMessage: '',
             amount: '0',
-            validAmount: false,
-            invalidAmountMessage: '',
+            validToAddress: true,
+            validToAmount: true,
         }
     }
-
-    _confirmToAddress = () => {
-        if (this.state.toAddress && !web3.utils.isAddress(this.state.toAddress)) {
-            this.setState({ invalidAddressMessage: INVALID_ADDRESS_MESSAGE });
-        }
-    }
-
-    _confirmAmount = () => {
-    }
-
+    
     render() {
         return (
             <View style={styles.container}>
                 <View style={styles.inputConatiner}>
                     <Input
-                        containerStyle={{width: '100%'}}
+                        containerStyle={styles.input}
                         inputContainerStyle={{backgroundColor: 'white'}}
                         errorStyle={{ color: 'red' }}
                         placeholder={'Recipient Address'}
                         onChangeText={text => this.setState({ toAddress: text })}
                         onEndEditing={this._confirmToAddress}
-                        onFocus={() => this.setState({ invalidAddressMessage: '' })}
-                        errorMessage={this.state.invalidAddressMessage}
+                        errorMessage={this.state.validToAddress ? '' : INVALID_ADDRESS_MESSAGE}
                     />
                     <Input
-                        containerStyle={{width: '100%'}}
+                        containerStyle={styles.input}
                         inputContainerStyle={{backgroundColor: 'white'}}
                         errorStyle={{ color: 'red' }}
                         placeholder={'Amount'}
                         onChangeText={text => this.setState({ amount: text })}
                         onEndEditing={this._confirmAmount}
-                        onFocus={() => this.setState({ invalidAmountMessage: '' })}
-                        errorMessage={this.state.invalidAmountMessage}
+                        errorMessage={this.state.validToAmount ? '' : INVALID_AMOUNT_MESSAGE}
                         keyboardType={'numeric'}
                         
                     />
@@ -86,12 +76,28 @@ class Send extends Component {
                 <Button
                     title={'Next'}
                     buttonStyle={styles.button}
-                    onPress={() => {}}
-                    disabled={this.state.invalidAddressMessage !== '' || this.state.invalidAmountMessage !== ''}
+                    onPress={this._onNext}
                 />
             </View>
         );
     }
+
+    _onNext = () => {
+        let validToAddress = this.state.toAddress && web3.utils.isAddress(this.state.toAddress);
+
+        let balance = Big(Utils.toDecimal(this.props.balance, this.props.token.decimals));
+        let amount = Big(this.state.amount);
+        let validToAmount = amount.gt(0) && amount.lte(balance);
+
+        this.setState({
+            validToAddress: validToAddress,
+            validToAmount: validToAmount,
+        });
+
+        if (validToAddress && validToAmount) {
+        }
+    }
+
 }
 
 const extractCurrentAddress = (wallet) => (
@@ -111,13 +117,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     inputConatiner: {
-        height: 100,
+        height: 200,
         width: '90%',
         marginTop: 30,
-        justifyContent: 'space-between'
     },
     input: {
-        width: '100%'
+        width: '100%',
+        marginTop: 10,
     },
     button: {
         width: 200,

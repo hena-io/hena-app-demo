@@ -25,3 +25,14 @@ export function toBalanceFormat(balance, decimals = 0) {
 
     return (parts[1] !== '' && parts[1] !== '0') ? parts.join('.') : parts[0];
 }
+
+export function toDecimal(numberString, decimals) {
+    numberString = numberString.padStart(decimals + 1, '0');
+    let point = numberString.length - decimals;
+    let parts = [
+        numberString.slice(0, point),
+        numberString.slice(point, numberString.length)
+    ];
+
+    return parts.join('.');
+}

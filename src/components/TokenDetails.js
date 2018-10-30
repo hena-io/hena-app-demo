@@ -38,7 +38,7 @@ export default class TokenDetails extends Component {
     _onSend = () => {
         this.props.onNavigate('Send', {
             token: this.props.token,
-            balance: this.props.valance,
+            balance: this.props.balance,
         });
     }
 
