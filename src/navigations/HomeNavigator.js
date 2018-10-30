@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 
 import WalletScreen from '../screens/WalletScreen';
 import MiningScreen from '../screens/MiningScreen';
-import AICScreen from '../screens/AICScreen';
+import AicScreen from '../screens/AicScreen';
 
 const ICON_SIZE = 26;
 
@@ -24,7 +24,7 @@ export default createBottomTabNavigator({
         }
     },
     AIC: {
-        screen: AICScreen,
+        screen: AicScreen,
         title: 'AIC',
         navigationOptions: {
             tabBarIcon: ({tintColor}) => <Icon name='ios-pie' size={ICON_SIZE} color={tintColor} />

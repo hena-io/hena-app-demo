@@ -1,5 +1,25 @@
 const FRACTIONAL_PART_DISPLAY_LENGTH = 4;
 
+export function fetchPost(apiStem, parameter) {
+    return fetch(apiStem, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(parameter)
+    })
+    .then(response => response.json())
+    .then(responseJson => {
+        console.log('Fetch', responseJson.result, responseJson.data);
+        return ({
+            result: responseJson.result,
+            success: (responseJson.result === 'Success'),
+            data: responseJson.data
+        });
+    });
+}
+
 export function toUsdFormat(price) {
     return price ? `$${price.substring(0, price.indexOf('.'))}` : '';
 }

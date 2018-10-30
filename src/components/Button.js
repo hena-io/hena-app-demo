@@ -2,32 +2,41 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 
-export default Button = ({ title, buttonStyle, titleStyle, onPress }) => (
-    <TouchableOpacity style={[styles.container, buttonStyle]} onPress={onPress}>
-        <Text style={[styles.title, titleStyle]}>{title}</Text>
-    </TouchableOpacity>
-)
+export default Button = ({ title, onPress, disabled, textStyle }) => {
+    let backgroundColor = `#225599${disabled ? '55' : 'FF'}`;
 
-Button.defaultProps = {
-    title: 'Button',
-    buttonStyle: { backgroundColor: '#00DDDD' }
-}
+    return (
+        <TouchableOpacity
+            style={[styles.button, { backgroundColor: backgroundColor }]}
+            onPress={onPress}
+            disabled={disabled}
+        >
+            <Text style={[styles.title, textStyle]}>{title}</Text>
+        </TouchableOpacity>
+    );
+};
 
 Button.propTypes = {
     title: PropTypes.string,
     onPress: PropTypes.func,
-}
+    disabled: PropTypes.bool,
+};
+
+Button.defaultProps = {
+    disabled: false,
+};
 
 const styles = StyleSheet.create({
-    container: {
+    button: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 4,
-        borderRadius: 10
+        borderRadius: 10,
+        margin: 5,
     },
     title: {
         fontSize: 20,
-        fontWeight: 'bold',
+        margin: 5,
+        color: '#EFEFEF'
     },
-})
+});
