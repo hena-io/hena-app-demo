@@ -9,6 +9,7 @@
   "dependencies": {
     "@tradle/react-native-http": "^2.0.0",
     "asyncstorage-down": "^4.0.1",
+    "big-number": "^1.0.0",
     "browserify-zlib": "^0.1.4",
     "dns.js": "^1.0.1",
     "ethereumjs-wallet-react-native": "^0.6.7",
@@ -25,6 +26,7 @@
     "react-native-level-fs": "^3.0.0",
     "react-native-linear-gradient": "2.4.0",
     "react-native-os": "^1.0.1",
+    "react-native-qrcode": "^0.2.7",
     "react-native-randombytes": "^3.5.1",
     "react-native-tcp": "^3.2.1",
     "react-native-udp": "^2.1.0",

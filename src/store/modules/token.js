@@ -4,13 +4,17 @@ import web3 from '../../utils/web3';
 import erc20 from '../../../assets/ABI/ERC20.json';
 
 // Action Types
+const LOAD_TOKENS = 'token/LOAD';
 const ADD_TOKEN = 'token/ADD';
 const REMOVE_TOKEN = 'token/REMOVE';
+const REMOVE_ALL_TOKENS = 'token/REMOVE_ALL';
 const UPDATE_BALANCE = 'token/UPDATE';
 
 // Actions
+export const loadTokens = createAction(LOAD_TOKENS);
 export const addToken = createAction(ADD_TOKEN);
 export const removeToken = createAction(REMOVE_TOKEN);
+export const removeAllTokens = createAction(REMOVE_ALL_TOKENS);
 export const updateBalance = createAction(UPDATE_BALANCE);
 
 // Initial State

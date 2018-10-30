@@ -8,13 +8,12 @@ import TokenDetails from '../components/TokenDetails';
 import TransactionListItem from '../components/TransactionListItem';
 import * as TransactionActions from '../store/modules/transactions';
 
-const TRANSACTION_OFFSET = 20;
-
 class WalletTokenContainer extends Component {
     static propTypes = {
         address: PropTypes.string.isRequired,
         index: PropTypes.number.isRequired,
         token: PropTypes.object.isRequired,
+        onNavigate: PropTypes.func.isRequired,
     }
 
     constructor(props) {
@@ -38,9 +37,9 @@ class WalletTokenContainer extends Component {
                 renderItem={this._renderItem}
                 ListHeaderComponent={
                     <TokenDetails
+                        token={this.props.token}
                         balance={this.state.balance}
-                        decimals={this.props.token.decimals}
-                        symbol={this.props.token.symbol}
+                        onNavigate={this.props.onNavigate}
                     />
                 }
                 refreshControl={

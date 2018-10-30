@@ -13,6 +13,7 @@ export default class WalletTokenDetailsScreen extends Component {
                 address={this.props.navigation.getParam('address')}
                 index={this.props.navigation.getParam('index')}
                 token={this.props.navigation.getParam('token')}
+                onNavigate={this.props.navigation.navigate}
             />
         );
     }

@@ -7,19 +7,16 @@ import {
     ActivityIndicator,
 } from 'react-native';
 import RNFS from 'react-native-fs';
-
 import web3 from '../utils/web3';
-import Wallet from 'ethereumjs-wallet-react-native';
 
 import { addToken } from '../store/modules/token';
-import { addWallet } from '../store/modules/wallet';
+import { loadWallets } from '../store/modules/wallet';
 
 import * as Constants from '../constants';
 
 import erc20 from '../../assets/ABI/ERC20.json';
 
 const HENA_TOKEN_CONTRACT_ADDRESS = '0x8d97c127236d3aef539171394212f2e43ad701c4';
-
 const WAIT_TIME = 1000;
 
 const defaultTokens = [
@@ -49,32 +46,8 @@ const defaultTokens = [
 
 class IntroContainer extends Component {
     componentWillMount() {
-        this.loadTokens();
-
-        RNFS.exists(Constants.WALLET_FILE_PATH)
-            // .then(exists => {
-            //     if (exists) {
-            //         RNFS.readDir(RNFS.DocumentDirectoryPath)
-            //             .then(result => Promise.all([RNFS.stat(result[0].path), result[0].path]))
-            //             .then(statResult => statResult[0].isFile() ? RNFS.readFile(statResult[1], 'utf8') : 'no file')
-            //             .then(contents => JSON.parse(contents))
-            //             .then(privateKeys => {
-            //                 privateKeys.forEach(privateKey => {
-            //                     let wallet = Wallet.fromPrivateKey(new Buffer(privateKey, 'hex'))
-            //                     let address = wallet.getPublicKeyString();
-            //                     console.log(web3.utils.isAddress(address), address);
-            //                     this.props.addWallet(wallet);
-            //                 });
-
-            //                 setTimeout(() => this.props.screenProps.navigation.navigate('Home'), WAIT_TIME);
-            //             })
-            //             .catch(error => console.log(error.message, error.code));
-            //     } else {
-            //         setTimeout(() => this.props.screenProps.navigation.navigate('AddWallet'), WAIT_TIME);
-            //     }
-            // });
-
-        setTimeout(() => this.props.screenProps.navigation.navigate('AddWallet'), 1000);
+        this._loadTokens();
+        this._loadWallets();
     }
 
     render() {
@@ -91,8 +64,24 @@ class IntroContainer extends Component {
         );
     }
 
-    loadTokens = () => {
+    _loadTokens = () => {
         defaultTokens.forEach(token => this.props.addToken(token));
+    }
+
+    _loadWallets = () => {
+        RNFS.exists(Constants.WALLET_FILE_PATH)
+            .then(exists => {
+                if (exists) {
+                    this.props.loadWallets();
+                    this._onNavigate('Home');
+                } else {
+                    this._onNavigate('AddWallet');
+                }
+            })
+    }
+
+    _onNavigate = (screen) => {
+        setTimeout(() => this.props.screenProps.navigation.navigate(screen), WAIT_TIME);
     }
 }
 
@@ -114,7 +103,7 @@ const styles = StyleSheet.create({
 
 const mapDispatchToProps = (dispatch) => ({
     addToken: (token) => dispatch(addToken(token)),
-    addWallet: (wallet) => dispatch(addWallet(wallet, false))
+    loadWallets: () => dispatch(loadWallets())
 });
 
 export default connect(undefined, mapDispatchToProps)(IntroContainer);

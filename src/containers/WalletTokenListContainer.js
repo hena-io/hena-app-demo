@@ -17,13 +17,13 @@ class WalletTokenListContainer extends Component {
 }
 
 const extractCurrentAddress = (wallet) => (
-    wallet.wallets[wallet.selectedIndex].getPublicKeyString()
+    wallet.wallets[wallet.selectedIndex].getAddressString()
 )
 
-const mapStateToProps = (state) => {console.log(state);  return ({
+const mapStateToProps = (state) => ({
     tokens: state.token.tokens,
     address: extractCurrentAddress(state.wallet)
-})}
+})
 
 const mapDispatchToProps = (dispatch) => ({
     removeToken: (index) => dispatch(TokenActions.removeToken(index))

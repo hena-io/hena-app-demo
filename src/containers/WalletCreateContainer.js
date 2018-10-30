@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import CreateWallet from '../components/CreateWallet';
-import * as walletActions from '../store/modules/wallet';
+import { addWallet } from '../store/modules/wallet';
 
 class WalletCreateContainer extends Component {
     render() {
@@ -18,7 +18,7 @@ class WalletCreateContainer extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    addWallet: (wallet) => dispatch(walletActions.addWallet(wallet, true))
+    addWallet: (wallet) => dispatch(addWallet(wallet))
 });
 
 export default connect(undefined, mapDispatchToProps)(WalletCreateContainer);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Clipboard } from 'react-native';
+import { StyleSheet, View, Clipboard, ToastAndroid } from 'react-native';
 import { Text, Button } from 'react-native-elements';
 import PropTypes from 'prop-types';
 import bip39 from 'react-native-bip39';
@@ -59,14 +59,13 @@ export default class CreateWallet extends Component {
 
     _onCopyWordsToClipboard = () => {
         Clipboard.setString(this.state.wordList);
+        ToastAndroid.show('Copied', ToastAndroid.SHORT);
     }
 
     _onCreate = () => {
         const seed = bip39.mnemonicToSeed(this.state.wordList);
         const hdkey = HDKey.fromMasterSeed(seed)
             .derivePath(Constants.DEFAULT_WALLET_PATH);
-
-        console.log(web3.utils.isAddress(hdkey.getWallet().getPublicKeyString()), hdkey.getWallet().getPublicKeyString());
 
         if (this.props.onCreate) {
             this.props.onCreate(hdkey.getWallet());

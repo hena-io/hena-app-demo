@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 
-export default Button = ({ title, buttonStyle, titleStyle }) => (
-    <TouchableOpacity style={[styles.container, buttonStyle]}>
+export default Button = ({ title, buttonStyle, titleStyle, onPress }) => (
+    <TouchableOpacity style={[styles.container, buttonStyle]} onPress={onPress}>
         <Text style={[styles.title, titleStyle]}>{title}</Text>
     </TouchableOpacity>
 )
@@ -15,6 +15,7 @@ Button.defaultProps = {
 
 Button.propTypes = {
     title: PropTypes.string,
+    onPress: PropTypes.func,
 }
 
 const styles = StyleSheet.create({

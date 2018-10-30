@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import * as walletActions from '../store/modules/wallet';
+import { addWallet, selectWallet } from '../store/modules/wallet';
 import ImportWallet from '../components/ImportWallet';
 
 class WalletImportContainer extends Component {
@@ -30,8 +30,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    addWallet: (wallet) => dispatch(walletActions.addWallet(wallet, true)),
-    selectWallet: (index) => dispatch(walletActions.selectWallet(index))
+    addWallet: (wallet) => dispatch(addWallet(wallet)),
+    selectWallet: (index) => dispatch(selectWallet(index))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WalletImportContainer);
