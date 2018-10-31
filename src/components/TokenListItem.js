@@ -38,12 +38,12 @@ export default class TokenListItem extends Component {
 
             // balance
             web3.eth.getBalance(this.props.address)
-                .then(balance => this.setState({ balance: balance }));
+                .then(balance => this.setState({ balance: balance.toString() }));
         } else if (this.props.item.contractAddress) {
             // balance
             this.contract = new web3.eth.Contract(erc20, this.props.item.contractAddress);
             this.contract.methods.balanceOf(this.props.address).call()
-                .then(balance => this.setState({ balance: balance }))
+                .then(balance => this.setState({ balance: balance.toString() }))
                 .catch(error => console.log(error));
         }
     }
@@ -63,7 +63,7 @@ export default class TokenListItem extends Component {
                 leftIcon={<Icon name='ios-qr-scanner' size={30} />}
                 title={`${this.props.item.name} (${this.props.item.symbol})`}
                 subtitle={toUsdFormat(this.state.price)}
-                rightTitle={toBalanceFormat(this.state.balance, 18)}
+                rightTitle={toBalanceFormat(this.state.balance, this.props.item.decimals)}
                 rightIcon={<Icon name='ios-arrow-forward' size={30} />}
                 onPress={this.props.onPress}
                 bottomDivider={true}

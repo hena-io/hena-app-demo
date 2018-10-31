@@ -13,7 +13,6 @@ export default class TokenList extends Component {
     static propTypes = {
         address: PropTypes.string.isRequired,
         tokens: PropTypes.arrayOf(PropTypes.object).isRequired,
-        listStyle: View.propTypes.style,
         onPressToken: PropTypes.func,
     }
 

@@ -24,8 +24,19 @@ export function toUsdFormat(price) {
     return price ? `$${price.substring(0, price.indexOf('.'))}` : '';
 }
 
+function padStart(string, length, c) {
+
+    let append = '';
+    for(var i = string.length; i < length; ++i)
+    {
+        append += c;
+    }
+    
+    return append + string;
+}
+
 export function toBalanceFormat(balance, decimals = 0) {
-    balance = balance.padStart(decimals + 1, '0');
+    balance = padStart(balance, decimals + 1, '0');
     
     let parts = [
         balance.substring(0, balance.length - decimals),
@@ -47,7 +58,7 @@ export function toBalanceFormat(balance, decimals = 0) {
 }
 
 export function toDecimal(numberString, decimals) {
-    numberString = numberString.padStart(decimals + 1, '0');
+    numberString = padStart(numberString, decimals + 1, '0');
     let point = numberString.length - decimals;
     let parts = [
         numberString.slice(0, point),
