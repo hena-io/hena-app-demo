@@ -4,6 +4,7 @@ import WalletTokenListScreen from '../screens/WalletTokenListScreen';
 import WalletTokenDetailsScreen from '../screens/WalletTokenDetailsScreen';
 import WalletReceiveScreen from '../screens/WalletReceiveScreen';
 import WalletSendScreen from '../screens/WalletSendScreen';
+import WalletTransferResultScreen from '../screens/WalletTransferResultScreen';
 
 export default createStackNavigator({
     Tokens: {
@@ -20,5 +21,11 @@ export default createStackNavigator({
     },
     Send: {
         screen: WalletSendScreen,
+    },
+    TransferResult: {
+        screen: WalletTransferResultScreen,
+        navigationOptions: {
+            headerTitle: 'Result'
+        }
     }
 });

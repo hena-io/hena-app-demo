@@ -8,8 +8,6 @@ import ListItemSeparator from '../ListItemSeparator';
 import { fetchPost } from '../../utils';
 import Config from 'react-native-config';
 
-import moment from 'moment';
-
 export default class Report extends Component {
     static propTypes = {
         userId: PropTypes.string.isRequired,

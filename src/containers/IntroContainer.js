@@ -33,14 +33,6 @@ const defaultTokens = [
         contractAddress: HENA_TOKEN_CONTRACT_ADDRESS,
         contract: new web3.eth.Contract(erc20, HENA_TOKEN_CONTRACT_ADDRESS),
         balance: '0',
-    },
-    {
-        name: 'tHena',
-        symbol: 'THENA',
-        decimals: 18,
-        contractAddress: '0x3f5b4afae259c95108c720f4eb997bc3ddb20686',
-        contract: new web3.eth.Contract(erc20, '0x3f5b4afae259c95108c720f4eb997bc3ddb20686'),
-        balance: '0',
     }
 ];
 

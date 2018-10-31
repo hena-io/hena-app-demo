@@ -12,7 +12,7 @@ import Config from 'react-native-config';
 export default class AicScreen extends Component {
     render() {
         return (
-            <Aic userId={Config.USER_ID} />
+            <Aic userId={Config.AIC_USER_ID} />
         );
     }
 }

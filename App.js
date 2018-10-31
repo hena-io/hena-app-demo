@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { View } from 'react-native';
+import { View, WebView } from 'react-native';
 
 import './global';
 

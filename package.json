@@ -12,6 +12,7 @@
     "big.js": "^5.2.2",
     "browserify-zlib": "^0.1.4",
     "dns.js": "^1.0.1",
+    "ethereumjs-tx": "^1.3.7",
     "ethereumjs-wallet-react-native": "^0.6.7",
     "https-browserify": "0.0.1",
     "moment": "^2.22.2",

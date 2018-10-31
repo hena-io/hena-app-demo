@@ -19,7 +19,7 @@ var miningConnector = null;
 export default class MiningScreen extends Component {
     render() {
         return (
-            <Mining userId={Config.USER_ID}/>
+            <Mining userId={Config.AIC_USER_ID}/>
         );
     }
 }
