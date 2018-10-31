@@ -24,8 +24,8 @@ class Aic extends Component {
 
     pages = [
         <AicBalances userId={this.props.userId} />,
-        <AicHistory userId={this.props.userId} />,
         <AicReport userId={this.props.userId} />,
+        <AicHistory userId={this.props.userId} />,
     ];
 
     constructor(props) {
@@ -41,7 +41,7 @@ class Aic extends Component {
             <View style={styles.container}>
                 <View style={styles.navigator}>
                     <RadioButtonGroup
-                        titles={['Balances', 'History', 'Report']}
+                        titles={['Balances', 'Report', 'History']}
                         onPress={(page) => this.setState({ page: page })}
                     />
                 </View>

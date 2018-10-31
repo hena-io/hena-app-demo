@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FlatList, RefreshControl } from 'react-native';
-
-import ListItem from '../ListItem';
+import { ListItem } from 'react-native-elements';
 import ListItemSeparator from '../ListItemSeparator';
 
 import { fetchPost } from '../../utils';
@@ -19,12 +18,13 @@ export default class History extends Component {
         this.state = {
             history: [],
             page: 0,
-            offset: 20,
+            offset: 100,
             refreshing: false,
         };
     }
 
     componentWillMount() {
+        console.log(this.props.userId);
         this.refresh();
     }
 
@@ -32,7 +32,7 @@ export default class History extends Component {
         return (
             <FlatList
                 data={this.state.history}
-                renderItem={this.renderListItem}
+                renderItem={this._renderListItem}
                 keyExtractor={item => item.adHistoryId}
                 ItemSeparator={ListItemSeparator}
                 refreshControl={this.renderRefreshControl()}
@@ -40,11 +40,13 @@ export default class History extends Component {
         );
     }
 
-    renderListITem = ({ index, item }) => {
+    _renderListItem = ({ index, item }) => {
         return (
             <ListItem
-                title={item.isDisplayed ? `Watch: ${item.displayTime}` : ''}
-                subtitle={item.isClicked ? `Click: ${item.clickTime}` : ''}
+                title={`${item.adDesignType} / ${item.campaignType}`}
+                subtitle={item.createTime}
+                rightTitle={`${item.customerRevenue} HENA`}
+                bottomDivider={true}
             />
         );
     }
@@ -71,8 +73,13 @@ export default class History extends Component {
             count: offset
         })
         .then(response => {
+            console.log('AIC', response);
             if (response.success) {
-                this.setState({ history: response.data.items });
+                this.setState({
+                    history: response.data.items.filter(
+                        item => (item.customerRevenue > 0)
+                    )
+                });
             }
         })
         .catch(error => console.log('[Error] AIC History', error));
